@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 $this->load->view('dist/_partials/header');
 ?>
+<!-- Datatables4 -->
+<link rel="stylesheet" href="<?php echo base_url('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?php echo base_url('assets/modules/datatables/datatables.min.css') ?>">  
   
   <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
       <div class="modal-dialog" role="document">
@@ -12,7 +15,6 @@ $this->load->view('dist/_partials/header');
         <div class="modal-body">
           <div class="box-body pad">
             <form  id="form"  class="form-horizontal">
-              <input type="hidden" value="" name="id"/>
                 <div class="form-body"> 
                       <input type="hidden" class="form-control" name="id" >
                   <div class="form-group">
@@ -35,7 +37,7 @@ $this->load->view('dist/_partials/header');
                   <div class="col-md-12 mb-3">
                   <div class="form-group">
                     <label>Harga</label>
-                      <input type="text" class="form-control" placeholder="Masukan Harga" name="harga" required>
+                      <input type="number" class="form-control" placeholder="Masukan Harga" name="harga" required>
                       <i class="form-control-feedback"></i><span class="text-warning" ></span>
                   </div>
                  </div>
@@ -68,23 +70,24 @@ $this->load->view('dist/_partials/header');
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Default Layout</h1>
+            <h1>Menu</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="#">Layout</a></div>
-              <div class="breadcrumb-item">Default Layout</div>
+              <div class="breadcrumb-item"><a href="#">Master</a></div>
+              <div class="breadcrumb-item">Menu</div>
             </div>
           </div>
           <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Advanced Table</h4>
-                    <button class="btn btn-primary" id="modal-1">Launch Modal</button>
-                    <button class="btn btn-default " onclick="reload_table()" data-toggle="tooltip"  data-placement="top" title="Reload Table"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
-                    <button type="button" class="btn btn-primary pull-right" onclick="add_kategori()" data-toggle="tooltip" data-placement="top" title="Tambah Data">
+                    <h4>Data Menu</h4>
+                    <div class="float-right">
+                    <button class="btn btn-info " onclick="reload_table()" data-toggle="tooltip"  data-placement="top" title="Reload Table"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
+                    <button type="button" class="btn btn-primary" onclick="add_kategori()" data-toggle="tooltip" data-placement="top" title="Tambah Data">
                       Tambah
-                    <span class="glyphicon glyphicon-file"></span></button>
+                    <span class="glyphicon glyphicon-file"></span></button>  
+                  </div>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -110,6 +113,37 @@ $this->load->view('dist/_partials/header');
             </div>
         </section>
       </div>
+
+  <!-- AdminLTE App -->
+  
+<script src="<?php echo base_url('assets/modules/jquery.min.js') ?>"></script> 
+<script src="<?php echo base_url('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') ?>"></script> 
+<script src="<?php echo base_url('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') ?>"></script> 
+<script src="<?php echo base_url('assets/modules/datatables/datatables.min.js') ?>"></script> 
+<script src="<?php echo base_url('assets/modules/jquery-ui/jquery-ui.min.js') ?>"></script> 
+<script src="<?php echo base_url('assets/js/page/modules-datatables.js') ?>"></script> 
+
+ <!-- General JS Scripts -->
+  <script src="<?php echo base_url(); ?>assets/modules/jquery.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/popper.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/tooltip.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/moment.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/stisla.js"></script>
+  
+  <!-- JS Libraies -->
+  <script src="<?php echo base_url(); ?>assets/modules/datatables/datatables.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/modules/jquery-ui/jquery-ui.min.js"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="<?php echo base_url(); ?>assets/js/page/modules-datatables.js"></script>
+
+  <!-- Template JS File -->
+  <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 
   <script type="text/javascript">
         var table;
@@ -150,7 +184,7 @@ $this->load->view('dist/_partials/header');
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Input kategori'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Input Menu'); // Set Title to Bootstrap modal title
     }
     
     function edit_data(id)
@@ -166,14 +200,13 @@ $this->load->view('dist/_partials/header');
     dataType: "JSON",
     success: function(data)
     {
-    $('[name="id"]').val(data.ID);
+    $('[name="id"]').val(data.id_menu);
     $('[name="kode"]').val(data.kode_menu);
     $('[name="nama"]').val(data.nama_menu);
     $('[name="harga"]').val(data.harga_menu);
-    $('[name="gambar"]').val(data.gambar);
     $('[name="aktif"]').val(data.aktif);
     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-    $('.modal-title').text('Edit Data kategori'); // Set title to Bootstrap modal title
+    $('.modal-title').text('Edit Data Menu'); // Set title to Bootstrap modal title
     
     },
     error: function (jqXHR, textStatus , errorThrown)
@@ -247,4 +280,3 @@ $this->load->view('dist/_partials/header');
     }
 </script>
 
-<?php $this->load->view('dist/_partials/footer'); ?>

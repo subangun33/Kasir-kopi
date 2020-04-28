@@ -20,7 +20,7 @@ class Menu extends CI_Controller {
 
     public function index(){
          $data = array(
-            'title' => "Layout &rsaquo; Default"
+            'title' => "Menu"
         );
         $this->load->view('dist/layout-default', $data);
     }
@@ -32,6 +32,7 @@ public function setView(){
         foreach ($result as $r) {
             $row    = array(
                         "no"             => $No,
+                        "id"             => $r->id_menu,
                         "kode_menu"      => $r->kode_menu,
                         "nama_menu"      => $r->nama_menu,
                         "harga_menu"     => $r->harga_menu,
@@ -65,7 +66,7 @@ public function setView(){
             "kode_menu"      => $kode_menu,
             "nama_menu"      => $nama_menu,
             "harga_menu"     => $harga_menu,
-            "gambar"         => $aktif,
+            "gambar"         => $aktif,         //var $aktif diganti hasil update gambar
             "aktif"          => $aktif,
             
             );
@@ -82,7 +83,7 @@ public function setView(){
     }
 
     function ajax_update(){
-        
+        $id = $this->input->post('id');
         $kode_menu = $this->input->post('kode');
         $nama_menu = $this->input->post('nama');
         $harga_menu = $this->input->post('harga');
@@ -90,15 +91,15 @@ public function setView(){
         $aktif = $this->input->post('aktif');
 
     $data = array(  
-         "kode_menu"      => $r->kode_menu,
-         "nama_menu"      => $r->nama_menu,
-         "harga_menu"     => $r->harga_menu,
-         "gambar"         => $r->gambar,
-         "aktif"          => $r->aktif,
+         "kode_menu"      => $kode_menu,
+         "nama_menu"      => $nama_menu,
+         "harga_menu"     => $harga_menu,
+        // "gambar"         => $r->gambar,  //perlu coding update gambar
+         "aktif"          => $aktif,
             );
 
         $where = array(
-        'ID' => $id
+        'id_menu' => $id
     );
  
         $this->M_menu->update($where,$data);
