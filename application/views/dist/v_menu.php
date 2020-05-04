@@ -21,17 +21,28 @@ $this->load->view('dist/_partials/header');
                     <label>Kode</label>
                       <input type="text" class="form-control" placeholder="Masukan Kode" name="kode" required>
                       <i class="form-control-feedback"></i><span class="text-warning" ></span>
-                  </div>     
+                  </div> 
+
                   <div class="form-group">
                     <label>Nama Menu</label>
                       <input type="text" class="form-control" placeholder="Masukan Nama Menu" name="nama" required>
                       <i class="form-control-feedback"></i><span class="text-warning" ></span>
                   </div>  
-                    
-                    <div class="custom-file">
-                    <label class="custom-file-label" for="customFile">Gambar</label>
-                      <input type="file" class="custom-file-input" placeholder="Masukan Gambar" name="gambar" required>
-                  </div>  
+
+                  <div class="form-group" id="photo-preview">
+                            <label class="control-label col-md-3">Gambar</label>
+                            <div class="col-md-9">
+                                (No gambar)
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" id="label-photo">Upload Gambar </label>
+                            <div class="col-md-9">
+                                <input name="" e="gambar" type="file">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>  
 
                   <div class="form-row">   
                   <div class="col-md-12 mb-3">
@@ -185,6 +196,12 @@ $this->load->view('dist/_partials/header');
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
     $('.modal-title').text('Input Menu'); // Set Title to Bootstrap modal title
+    
+
+     $('#photo-preview').hide(); // hide photo preview modal
+ 
+    $('#label-photo').text('Upload Photo'); // label photo upload
+
     }
     
     function edit_data(id)
@@ -208,6 +225,22 @@ $this->load->view('dist/_partials/header');
     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
     $('.modal-title').text('Edit Data Menu'); // Set title to Bootstrap modal title
     
+     $('#photo-preview').show(); // show photo preview modal
+ 
+            if(data.gambar)
+            {
+                $('#label-photo').text('Change gambar'); // label photo upload
+                $('#photo-preview div').html('<img src="'+base_url+'/assets/imgmenu/'+data.gambar+'" class="img-responsive">'); // show photo
+                $('#photo-preview div').append('<input type="checkbox" name="remove_photo" value="'+data.gambar+'"/> Remove gambar when saving'); // remove photo
+ 
+            }
+            else
+            {
+                $('#label-photo').text('Upload Photo'); // label photo upload
+                $('#photo-preview div').text('(No photo)');
+            }
+
+
     },
     error: function (jqXHR, textStatus , errorThrown)
     {
@@ -227,14 +260,16 @@ $this->load->view('dist/_partials/header');
     } else {
     url = "<?php echo base_url('menu/ajax_update')?>";
     }
-    // ajax adding data to database
+    var formData = new FormData($('#form')[0]);
     $.ajax({
-    url : url,
-    type: "POST",
-    data: $('#form').serialize(),
-    dataType: "JSON",
-    success: function(data)
-    {
+        url : url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
     if(data.status) //if success close modal and reload ajax table
     {
     $('#modal_form').modal('hide');

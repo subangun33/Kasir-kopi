@@ -15,14 +15,14 @@ class Menu extends CI_Controller {
         // }
 
         $this->load->model('M_menu');
-        $this->load->helper(array('form', 'url','tombol'));
+        $this->load->helper(array('form', 'url','tombol','img'));
     }
 
     public function index(){
          $data = array(
             'title' => "Menu"
         );
-        $this->load->view('dist/layout-default', $data);
+        $this->load->view('dist/v_menu', $data);
     }
 
 public function setView(){
@@ -36,7 +36,7 @@ public function setView(){
                         "kode_menu"      => $r->kode_menu,
                         "nama_menu"      => $r->nama_menu,
                         "harga_menu"     => $r->harga_menu,
-                        "gambar"         => $r->gambar,
+                        "gambar"         => img($r->gambar),
                         "aktif"          => $r->aktif,
                         "action"         => tombol($r->id_menu)
             );
@@ -50,31 +50,16 @@ public function setView(){
 
      public function ajax_delete($id)
     {
+        $person = $this->M_menu->edit($id);
+        if(file_exists('./assets/imgmenu/'.$person->gambar) && $person->gambar)
+            unlink('./assets/imgmenu/'.$person->gambar);
+
+
         $this->M_menu->delete_by_kode($id);
         echo json_encode(array("status" => TRUE));
     }
 
-    function ajax_add(){
-
-        $kode_menu = $this->input->post('kode');
-        $nama_menu = $this->input->post('nama');
-        $harga_menu = $this->input->post('harga');
-        $gambar = $this->input->post('gambar');
-        $aktif = $this->input->post('aktif');
- 
-        $data = array(
-            "kode_menu"      => $kode_menu,
-            "nama_menu"      => $nama_menu,
-            "harga_menu"     => $harga_menu,
-            "gambar"         => $aktif,         //var $aktif diganti hasil update gambar
-            "aktif"          => $aktif,
-            
-            );
-
-        $this->M_menu->inputdata($data,'menu');
-        echo json_encode(array("status" => TRUE));    
-           
-    }
+    
     
        public function ajax_edit($id)
     {
@@ -89,6 +74,27 @@ public function setView(){
         $harga_menu = $this->input->post('harga');
         $gambar = $this->input->post('gambar');
         $aktif = $this->input->post('aktif');
+
+
+        if($this->input->post('remove_photo')) // if remove gambar checked
+        {
+            if(file_exists('assets/imgmenu'.$this->input->post('remove_photo')) && $this->input->post('remove_photo'))
+                unlink('assets/imgmenu'.$this->input->post('remove_photo'));
+            $data['gambar'] = '';
+        }
+ 
+        if(!empty($_FILES['gambar']['name']))
+        {
+            $assets = $this->_do_upload();
+             
+            //delete file
+            $person = $this->M_menu->edit($this->input->post('id'));
+            if(file_exists('/assets/imgmenu/'.$person->gambar) && $person->gambar)
+                unlink('/assets/imgmenu/'.$person->gambar);
+ 
+            $data['gambar'] = $assets;
+        }
+
 
     $data = array(  
          "kode_menu"      => $kode_menu,
@@ -106,4 +112,53 @@ public function setView(){
         echo json_encode(array("status" => TRUE));
 
 }
+
+function ajax_add(){
+
+        $kode_menu = $this->input->post('kode');
+        $nama_menu = $this->input->post('nama');
+        $harga_menu = $this->input->post('harga');
+        $aktif = $this->input->post('aktif');
+ 
+        $data = array(
+            "kode_menu"      => $kode_menu,
+            "nama_menu"      => $nama_menu,
+            "harga_menu"     => $harga_menu,
+            "aktif"          => $aktif,
+            
+            );
+
+        if(!empty($_FILES['gambar']['name']))
+        {
+            $upload = $this->_do_upload();
+            $data['gambar'] = $upload;
+        }
+
+        $this->M_menu->inputdata($data,'menu');
+        echo json_encode(array("status" => TRUE));    
+           
+    }
+
+ private function _do_upload()
+    {
+        $config['upload_path']          = './assets/imgmenu/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 1000; //set max size allowed in Kilobyte
+        $config['max_width']            = 1000; // set max width image allowed
+        $config['max_height']           = 1000; // set max height allowed
+        $config['file_name']            = round(microtime(true) * 1000); //just milisecond timestamp fot unique name
+ 
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if(!$this->upload->do_upload('gambar')) //upload and validate
+        {
+            $data['inputerror'][] = 'gambar';
+            $data['error_string'][] = 'Upload error: '.$this->upload->display_errors('',''); //show ajax error
+            $data['status'] = FALSE;
+            echo json_encode($data);
+            exit();
+        }
+        return $this->upload->data('file_name');
+    }
+
 }
