@@ -5,14 +5,14 @@ class Meja extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        // if ($this->session->userdata['logged'] == TRUE)
-        // { }
+        if ($this->session->userdata['logged'] == TRUE)
+        { }
             
-        // else
-        // {
-        //     $this->session->set_flashdata('message', '<div style="color : red;">Login Terlebih Dahulu</div>');
-        //     redirect('Login');
-        // }
+        else
+        {
+            $this->session->set_flashdata('message', '<div style="color : red;">Login Terlebih Dahulu</div>');
+            redirect('Login');
+        }
 
         $this->load->model('M_meja');
         $this->load->helper(array('form', 'url','tombol','add'));
@@ -23,7 +23,7 @@ class Meja extends CI_Controller {
          $data = array(
             'title' => "Meja"
         );
-        $this->load->view('dist/v_meja', $data);
+        $this->load->view('dist/admin/v_meja', $data);
     }
 
 

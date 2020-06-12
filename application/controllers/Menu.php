@@ -5,14 +5,14 @@ class Menu extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        // if ($this->session->userdata['logged'] == TRUE)
-        // { }
+        if ($this->session->userdata['logged'] == TRUE)
+        { }
             
-        // else
-        // {
-        //     $this->session->set_flashdata('message', '<div style="color : red;">Login Terlebih Dahulu</div>');
-        //     redirect('Login');
-        // }
+        else
+        {
+            $this->session->set_flashdata('message', '<div style="color : red;">Login Terlebih Dahulu</div>');
+            redirect('Login');
+        }
 
         $this->load->model('M_menu');
         $this->load->helper(array('form', 'url','tombol','img'));
@@ -22,7 +22,7 @@ class Menu extends CI_Controller {
          $data = array(
             'title' => "Menu"
         );
-        $this->load->view('dist/v_menu', $data);
+        $this->load->view('dist/admin/v_menu', $data);
     }
 
 public function setView(){
@@ -75,11 +75,23 @@ public function setView(){
         $gambar = $this->input->post('gambar');
         $aktif = $this->input->post('aktif');
 
+    $data = array(  
+         "kode_menu"      => $kode_menu,
+         "nama_menu"      => $nama_menu,
+         "harga_menu"     => $harga_menu,
+        // "gambar"         => $r->gambar,  //perlu coding update gambar
+         "aktif"          => $aktif,
+            );
+
+        $where = array(
+        'id_menu' => $id
+    );
+
 
         if($this->input->post('remove_photo')) // if remove gambar checked
         {
-            if(file_exists('assets/imgmenu'.$this->input->post('remove_photo')) && $this->input->post('remove_photo'))
-                unlink('assets/imgmenu'.$this->input->post('remove_photo'));
+            if(file_exists('./assets/imgmenu/'.$this->input->post('remove_photo')) && $this->input->post('remove_photo'))
+                unlink('./assets/imgmenu/'.$this->input->post('remove_photo'));
             $data['gambar'] = '';
         }
  
@@ -94,19 +106,6 @@ public function setView(){
  
             $data['gambar'] = $assets;
         }
-
-
-    $data = array(  
-         "kode_menu"      => $kode_menu,
-         "nama_menu"      => $nama_menu,
-         "harga_menu"     => $harga_menu,
-        // "gambar"         => $r->gambar,  //perlu coding update gambar
-         "aktif"          => $aktif,
-            );
-
-        $where = array(
-        'id_menu' => $id
-    );
  
         $this->M_menu->update($where,$data);
         echo json_encode(array("status" => TRUE));
@@ -115,10 +114,10 @@ public function setView(){
 
 function ajax_add(){
 
-        $kode_menu = $this->input->post('kode');
-        $nama_menu = $this->input->post('nama');
+        $kode_menu  = $this->input->post('kode');
+        $nama_menu  = $this->input->post('nama');
         $harga_menu = $this->input->post('harga');
-        $aktif = $this->input->post('aktif');
+        $aktif      = $this->input->post('aktif');
  
         $data = array(
             "kode_menu"      => $kode_menu,
