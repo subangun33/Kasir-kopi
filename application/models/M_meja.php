@@ -15,8 +15,13 @@ class M_meja extends CI_Model{
 
     }
 
+    function cek_meja($table,$where){
 
-function hapus_data($where,$table){
+        return $this->db->get_where($table,$where);
+    
+      }
+
+    function hapus_data($where,$table){
         $this->db->where($where);
         $this->db->delete($table);
     }
