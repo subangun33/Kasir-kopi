@@ -17,54 +17,46 @@ $this->load->view('dist/_partials/header');
             <form  id="form"  class="form-horizontal">
                 <div class="form-body"> 
                       <input type="hidden" class="form-control" name="id" >
-                  <div class="form-group">
-                    <label>Total</label>
-                      <input type="text" class="form-control" placeholder="Masukan total" name="total" required>
-                      <i class="form-control-feedback"></i><span class="text-warning" ></span>
-                  </div> 
-
-                  <div class="form-group">
-                    <label>Nama Pemesan</label>
-                      <input type="text" class="form-control" placeholder="Masukan Nama Pemesan" name="nama_pemesan" required>
-                      <i class="form-control-feedback"></i><span class="text-warning" ></span>
-                  </div>
-                  <div class="form-group">
-                    <label>Refdetail</label>
-                      <input type="text" class="form-control" placeholder="Masukan Refdetail" name="refdetail" required>
-                      <i class="form-control-feedback"></i><span class="text-warning" ></span>
-                  </div>
-                  <div class="form-group">
-                    <label>Meja</label>
-                      <input type="text" class="form-control" placeholder="Masukan Meja" name="meja" required>
-                      <i class="form-control-feedback"></i><span class="text-warning" ></span>
-                  </div>  
-                  <div class="form-group">
-                    <label>Waktu Pemesanan</label>
-                      <input type="text" class="form-control" placeholder="Masukan Waktu Pemesanan" name="Waktu_pemesanan" required>
-                      <i class="form-control-feedback"></i><span class="text-warning" ></span>
-                  </div>
+                  <div class="modal-body">
+            <form id="form" class="needs-validation" role="form" action="<?php echo site_url('view/cart'); ?>" method="post">
+              <label for="customFile">Status</label> 
+                      <select name="status" class="form-control" placeholder="PILIH" required="">
+                      <option value="">-</option>
+                      <option value="Selesai">Selesai</option>
+                      <option value="Pesanan Belum Dibayar">Pesanan Belum Dibayar</option>
+                      </select>
+                <input type="hidden" name="id">
+            </div>
               </div>
               </div>
             </form>
+      </div>
+
           
-            <div class="modal-footer">
+          <div class="modal-footer">
             <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Simpan</button>
             <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
           </div>
       </div>
     </div>
+  </div>
 
-      <!-- Main Content -->
+
+<!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>User</h1>
+            <h1>Transaksi</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
               <div class="breadcrumb-item"><a href="#">Master</a></div>
-              <div class="breadcrumb-item">User</div>
+              <div class="breadcrumb-item">Transaksi</div>
             </div>
           </div>
+
+
+
+
           <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -72,9 +64,9 @@ $this->load->view('dist/_partials/header');
                     <h4>Data Transaksi</h4>
                     <div class="float-right">
                     <button class="btn btn-info " onclick="reload_table()" data-toggle="tooltip"  data-placement="top" title="Reload Table"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
-                    <button type="button" class="btn btn-primary" onclick="add_kategori()" data-toggle="tooltip" data-placement="top" title="Tambah Data">
+                    <!-- <button type="button" class="btn btn-primary" onclick="add_kategori()" data-toggle="tooltip" data-placement="top" title="Tambah Data">
                       Tambah
-                    <span class="glyphicon glyphicon-file"></span></button>  
+                    <span class="glyphicon glyphicon-file"></span></button>   -->
                   </div>
                   </div>
                   <div class="card-body">
@@ -88,6 +80,7 @@ $this->load->view('dist/_partials/header');
                               <th>Refdetail</th>
                               <th>Meja</th>
                               <th>Waktu Pemesanan</th>
+                              <th>Status</th>
                               <th>Action</th>
                           </tr>
                         </thead>
@@ -101,6 +94,7 @@ $this->load->view('dist/_partials/header');
             </div>
         </section>
       </div>
+
 
   <!-- AdminLTE App -->
   
@@ -152,7 +146,8 @@ $this->load->view('dist/_partials/header');
               { "data": "nama_pemesan" },
               { "data": "refdetail" },
               { "data": "meja" },
-              { "data": "Waktu_pemesanan" },
+              { "data": "waktu_pemesanan" },
+              { "data": "status" },
               { "data": "action" }
             ],
             "order": [[0, 'asc']]
@@ -197,8 +192,6 @@ $this->load->view('dist/_partials/header');
     $('[name="Waktu_pemesanan"]').val(data.Waktu_pemesanan);
     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
     $('.modal-title').text('Edit Data Transaksi'); // Set title to Bootstrap modal title
-    
-
 
     },
     error: function (jqXHR, textStatus , errorThrown)
@@ -249,28 +242,4 @@ $this->load->view('dist/_partials/header');
     });
     }
 
-    function delete_data(id)
-    {
-    if(confirm('Yakin Hapus Data ?'))
-    {
-    // ajax delete data to database
-    $.ajax({
-    url : "<?php echo base_url('transaksi/ajax_delete')?>/" +id,
-    type: "POST",
-    dataType: "JSON",
-    success: function(data)
-    {
-    //if success reload ajax table
-    $('#modal_form').modal('hide');
-    reload_table();
-    },
-    error: function (jqXHR, textStatus , errorThrown)
-    {
-    alert('Error deleting data');
-    }
-    });
-    
-    }
-    }
 </script>
-

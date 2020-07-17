@@ -29,6 +29,12 @@ $this->load->view('dist/_partials/header');
                       <i class="form-control-feedback"></i><span class="text-warning" ></span>
                   </div>  
 
+                  <div class="form-group">
+                    <label>Deskripsi</label>
+                      <input type="text" class="form-control" placeholder="Masukan Deskripsi" name="deskripsi" required>
+                      <i class="form-control-feedback"></i><span class="text-warning" ></span>
+                  </div>
+
                   <div class="form-group" id="photo-preview">
                             <label class="control-label col-md-3">Gambar</label>
                             <div class="col-md-9">
@@ -42,7 +48,7 @@ $this->load->view('dist/_partials/header');
                                 <input name="gambar" type="file">
                                 <span class="help-block"></span>
                             </div>
-                        </div>  
+                        </div>    
 
                   <div class="form-row">   
                   <div class="col-md-12 mb-3">
@@ -109,6 +115,7 @@ $this->load->view('dist/_partials/header');
                               <th>Kode</th>
                               <th>Nama Menu</th>
                               <th>Harga</th>
+                              <th>Deskripsi</th>
                               <th>Gambar</th>
                               <th>Aktif</th>
                               <th>Action</th>
@@ -174,6 +181,7 @@ $this->load->view('dist/_partials/header');
               { "data": "kode_menu" },  
               { "data": "nama_menu" },
               { "data": "harga_menu" },
+              { "data": "deskripsi" },
               { "data": "gambar" },
               { "data": "aktif" },
               { "data": "action" }
@@ -221,6 +229,7 @@ $this->load->view('dist/_partials/header');
     $('[name="kode"]').val(data.kode_menu);
     $('[name="nama"]').val(data.nama_menu);
     $('[name="harga"]').val(data.harga_menu);
+    $('[name="deskripsi"]').val(data.deskripsi);
     $('[name="aktif"]').val(data.aktif);
     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
     $('.modal-title').text('Edit Data Menu'); // Set title to Bootstrap modal title

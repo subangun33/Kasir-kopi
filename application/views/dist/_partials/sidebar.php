@@ -4,10 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="<?php echo base_url(); ?>dist/index">Stisla</a>
+            <a href="<?php echo base_url(); ?>dist/index">Kasir</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="<?php echo base_url(); ?>dist/index">St</a>
+            <a href="<?php echo base_url(); ?>dist/index">Ka</a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -35,7 +35,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Transaksi</span></a>
               <ul class="dropdown-menu">
                 <li class="<?php echo $this->uri->segment(2) == 'layout_default' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi">Penjualan</a></li>
-
 
               </ul>
 

@@ -15,6 +15,19 @@ class M_transaksi extends CI_Model{
 
     }
 
+    function cek($nama,$meja,$hp){
+         $this->db->where('nama_pemesan',$nama);
+         $this->db->where('meja',$meja);
+         $this->db->where('no_hp',$hp);
+         $this->db->where('status',"Pesanan Belum Dibayar");
+        return $this->db->get('transaksi');
+    }
+
+    function status_meja($meja){
+         $this->db->where('meja',$meja);
+         $this->db->where('status',"Pesanan Belum Dibayar");
+        return $this->db->get('transaksi');
+    }
 
 function hapus_data($where,$table){
         $this->db->where($where);

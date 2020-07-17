@@ -36,6 +36,7 @@ public function setView(){
                         "kode_menu"      => $r->kode_menu,
                         "nama_menu"      => $r->nama_menu,
                         "harga_menu"     => $r->harga_menu,
+                        "deskripsi"      => $r->deskripsi,
                         "gambar"         => img($r->gambar),
                         "aktif"          => $r->aktif,
                         "action"         => tombol($r->id_menu)
@@ -72,6 +73,7 @@ public function setView(){
         $kode_menu = $this->input->post('kode');
         $nama_menu = $this->input->post('nama');
         $harga_menu = $this->input->post('harga');
+        $deskripsi = $this->input->post('deskripsi');
         $gambar = $this->input->post('gambar');
         $aktif = $this->input->post('aktif');
 
@@ -79,6 +81,7 @@ public function setView(){
          "kode_menu"      => $kode_menu,
          "nama_menu"      => $nama_menu,
          "harga_menu"     => $harga_menu,
+         "deskripsi"     => $deskripsi,
         // "gambar"         => $r->gambar,  //perlu coding update gambar
          "aktif"          => $aktif,
             );
@@ -117,12 +120,14 @@ function ajax_add(){
         $kode_menu  = $this->input->post('kode');
         $nama_menu  = $this->input->post('nama');
         $harga_menu = $this->input->post('harga');
+        $deskripsi  = $this->input->post('deskripsi');
         $aktif      = $this->input->post('aktif');
  
         $data = array(
             "kode_menu"      => $kode_menu,
             "nama_menu"      => $nama_menu,
             "harga_menu"     => $harga_menu,
+            "deskripsi"     => $deskripsi,
             "aktif"          => $aktif,
             
             );
@@ -141,8 +146,8 @@ function ajax_add(){
  private function _do_upload()
     {
         $config['upload_path']          = './assets/imgmenu/';
-        $config['allowed_types']        = 'gif|jpg|png';
-        $config['max_size']             = 1000; //set max size allowed in Kilobyte
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = 5000; //set max size allowed in Kilobyte
         $config['max_width']            = 1000; // set max width image allowed
         $config['max_height']           = 1000; // set max height allowed
         $config['file_name']            = round(microtime(true) * 1000); //just milisecond timestamp fot unique name

@@ -15,7 +15,7 @@ class Transaksi extends CI_Controller {
         }
 
         $this->load->model('M_transaksi');
-        $this->load->helper(array('form', 'url','tombol','img'));
+        $this->load->helper(array('form', 'url','transaksi','img'));
     }
 
     public function index(){
@@ -37,8 +37,9 @@ public function setView(){
                         "nama_pemesan"   => $r->nama_pemesan,
                         "refdetail"      => $r->refdetail,
                         "meja"           => $r->meja,
-                        "waktu_pemesan"  => $r->waktu_pemesanan,
-                        "action"         => tombol($r->id_transaksi)
+                        "waktu_pemesanan"  => $r->waktu_pemesanan,
+                        "status"            => $r->status,
+                        "action"         => transaksi($r->id_transaksi)
             );
 
             $list[] = $row;
@@ -46,16 +47,7 @@ public function setView(){
         }   
 
         echo json_encode(array('data' => $list));
-    }
-
-     public function ajax_delete($id)
-    {
-        
-        $this->M_transaksi->delete_by_kode($id);
-        echo json_encode(array("status" => TRUE));
-    }
-
-    
+    }    
     
        public function ajax_edit($id)
     {
@@ -65,19 +57,11 @@ public function setView(){
 
     function ajax_update(){
         $id = $this->input->post('id');
-        $total = $this->input->post('total');
-        $nama_pemesan = $this->input->post('nama_pemesan');
-        $refdetail = $this->input->post('refdetail');
-        $meja = $this->input->post('meja');
-        $waktu_pemesanan = $this->input->post('waktu_pemesanan');
+        $status = $this->input->post('status');
 
 
     $data = array(  
-                        "total"          => $r->total,
-                        "nama_pemesan"   => $r->nama_pemesan,
-                        "refdetail"      => $r->refdetail,
-                        "meja"           => $r->meja,
-                        "waktu_pemesan"  => $r->waktu_pemesanan,
+             "status"          => $status
             );
 
         $where = array(
@@ -90,33 +74,7 @@ public function setView(){
 
 }
 
-function ajax_add(){
 
-        $id = $this->input->post('id');
-        $total = $this->input->post('total');
-        $nama_pemesan = $this->input->post('nama_pemesan');
-        $refdetail = $this->input->post('refdetail');
-        $meja = $this->input->post('meja');
-        $waktu_pemesanan = $this->input->post('waktu_pemesanan');
-        
- 
-        $data = array(
-            "total"          => $r->total,
-            "nama_pemesan"   => $r->nama_pemesan,
-            "refdetail"      => $r->refdetail,
-            "meja"           => $r->meja,
-            "waktu_pemesan"  => $r->waktu_pemesanan,
-            
-
-            
-            );
-
-       
-
-        $this->M_transaksis->inputdata($data,'transaksi');
-        echo json_encode(array("status" => TRUE));    
-           
-    }
 
 
 }

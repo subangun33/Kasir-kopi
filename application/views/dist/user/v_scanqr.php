@@ -38,12 +38,12 @@
                 <div class="row">
                     <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <div class="login-brand">
-                            <img src="http://localhost/stisla-codeigniter/assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+                            <img src="http://localhost/stisla-codeigniter/assets/img/kedai.png" alt="logo" width="100" class="shadow-light rounded-circle">
                         </div>
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Scan-Qr</h4>
+                                <h4>Silahkan Scan-Qr disini</h4>
                             </div>
                             <form action="<?php echo base_url('Scanqr/aksi_scan'); ?>" method="post">
                                 <div class="card-body">
@@ -54,7 +54,8 @@
                                             <div class="d-block">
                                                 <label for="decodeqr" class="control-label">Kode Meja</label>
                                             </div>
-                                            <input id="decodeqr" type="text" class="form-control" name="decodeqr" tabindex="2" disabled
+                                            <input id="decodeqr" type="text" class="form-control" name="" tabindex="2" disabled>
+                                            <input id="scan" type="hidden" class="form-control" name="decodeqr" tabindex="2" >
                                         </div>
                                         <div class="form-group">
                                             <div class="d-block">
@@ -65,6 +66,19 @@
                                                 please fill in your password
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <div class="d-block">
+                                                <label class="control-label">No HP</label>
+                                            </div>
+                                            <input type="text" class="form-control" name="no_hp" tabindex="2" required>
+                                            <div class="invalid-feedback">
+                                                please fill in your password
+                                            </div>
+                                        </div>
+                                        
+
+
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                                 Pesan Sekarang
@@ -104,6 +118,7 @@
         var arg = {
             resultFunction: function(result) {
                 $('#decodeqr').val(result.code);
+                $('#scan').val(result.code);
                 console.log(result.code);
             }
         };

@@ -31,6 +31,12 @@ function hapus_data($where,$table){
     return $query->row(); 
     }
 
+    public function get_harga($id)
+    {
+     $query = $this->db->query("SELECT * from menu where menu.kode_menu='$id'");
+    return $query; 
+    }
+
      public function delete_by_kode($id)
     {
         $this->db->where('id_menu', $id);
