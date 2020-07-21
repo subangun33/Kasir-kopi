@@ -5,20 +5,81 @@ $this->load->view('dist/_partials/header');
 <!-- Datatables4 -->
 <link rel="stylesheet" href="<?php echo base_url('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') ?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/modules/datatables/datatables.min.css') ?>">  
-  
-  <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
-      <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel"></h3>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-94034622-3');
+</script>
+<!-- /END GA --></head>
+
+<body>
+  <div id="app">
+    
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>Invoice</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="breadcrumb-item">Invoice</div>
+            </div>
           </div>
-        <div class="modal-body">
+                      <?php 
+                            foreach ($trx as $r) {
+                            ?>
+          <div class="section-body">
+            <div class="invoice">
+              <div class="invoice-print">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="invoice-title">
+                      <h2>Invoice</h2>
+                      <div class="invoice-number">Order #<?php echo $r->refdetail ?></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <address>
+                          <strong>Pesanan Atas Nama:</strong><br> Nama:<b>
+                            <?php echo $r->nama_pemesan ?></b><br>No Meja :
+                            <?php echo $r->meja ?><br>No HP :
+                            <?php echo $r->no_hp ?>
+                        </address>
+                      </div>
+                      <div class="col-md-6 text-md-right">
+                        <address>
+                          <strong>Total:</strong><br>
+                          <?php echo $r->total ?>
+                        </address>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                      </div>
+                      <div class="col-md-6 text-md-right">
+                        <address>
+                          <strong>Order Date:</strong><br>
+                          <?php echo $r->waktu_pemesanan ?><br><br>
+                        </address>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
+                
+
+                <div class="modal-body">
           <div class="box-body pad">
             <form  id="form"  class="form-horizontal">
                 <div class="form-body"> 
                       <input type="hidden" class="form-control" name="id" >
                   <div class="modal-body">
-            <form id="form" class="needs-validation" role="form" action="<?php echo site_url('view/cart'); ?>" method="post">
+            <form id="form" class="needs-validation" role="form" action="<?php echo site_url('view/Detail'); ?>" method="post">
               <label for="customFile">Status</label> 
                       <select name="status" class="form-control" placeholder="PILIH" required="">
                       <option value="">-</option>
@@ -32,72 +93,53 @@ $this->load->view('dist/_partials/header');
             </form>
       </div>
 
-          
-          <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Simpan</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
-          </div>
-      </div>
-    </div>
-  </div>
 
 
-<!-- Main Content -->
-      <div class="main-content">
-        <section class="section">
-          <div class="section-header">
-            <h1>Transaksi</h1>
-            <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="#">Master</a></div>
-              <div class="breadcrumb-item">Transaksi</div>
-            </div>
-          </div>
-
-
-
-
-          <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>Data Transaksi</h4>
-                    <div class="float-right">
-                    <button class="btn btn-info " onclick="reload_table()" data-toggle="tooltip"  data-placement="top" title="Reload Table"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
-                    <!-- <button type="button" class="btn btn-primary" onclick="add_kategori()" data-toggle="tooltip" data-placement="top" title="Tambah Data">
-                      Tambah
-                    <span class="glyphicon glyphicon-file"></span></button>   -->
-                  </div>
-                  </div>
-                  <div class="card-body">
+                <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-striped" id="table">
                         <thead>
                           <tr>
-                              <th>No</th>
-                              <th>Total</th>
-                              <th>Nama Pemesan</th>
-                              <th>Refdetail</th>
-                              <th>Meja</th>
-                              <th>Waktu Pemesanan</th>
+                              <th>Nama</th>
+                              <th>Jumlah</th>
+                              <th>Subtotal</th>
                               <th>Status</th>
                               <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
+                          <?php 
+                            foreach ($detail as $r) {
+                            ?>
+                          <tr>
+                              <td><?php echo $r->nama_menu ?></td>
+                              <td><?php echo $r->jumlah ?></td>
+                              <td><?php echo $r->subtotal ?></td>
+                              <td><?php echo $r->status ?></td>
+                              <td><a href='javascript:void(0)' class='btn btn-sm btn-warning' data-toggle='tooltip' data-placement='top' title='Edit' onclick='edit_data(".$text.")'><i class='fa fa-list-alt'></i></a>
+                            <?php } ?>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
-                </div>
+              
+                <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
               </div>
             </div>
+          </div>
         </section>
       </div>
+      <footer class="main-footer">
+        
+        <div class="footer-right">
+          
+        </div>
+      </footer>
+    </div>
+  </div>
 
-
-  <!-- AdminLTE App -->
-  
+ 
 <script src="<?php echo base_url('assets/modules/jquery.min.js') ?>"></script> 
 <script src="<?php echo base_url('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') ?>"></script> 
 <script src="<?php echo base_url('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') ?>"></script> 
@@ -133,26 +175,8 @@ $this->load->view('dist/_partials/header');
         var save_method;
 
          $(document).ready(function() {
-          table = $('#table').DataTable({  
-            "processing": true, 
-            "ajax": {
-                "url": "<?php echo base_url('transaksi/setView'); ?>",
-                "type": "POST",
-            },
-            "columns": [
-
-              { "data": "no" },  
-              { "data": "total" },  
-              { "data": "nama_pemesan" },
-              { "data": "refdetail" },
-              { "data": "meja" },
-              { "data": "waktu_pemesanan" },
-              { "data": "status" },
-              { "data": "action" }
-            ],
-            "order": [[0, 'asc']]
+          
           });
-        });
 
 
     function reload_table()
@@ -170,32 +194,27 @@ $this->load->view('dist/_partials/header');
     $('.modal-title').text('Input Transaksi'); // Set Title to Bootstrap modal title
     
     }
-
-    function detail(kode)
-    {
-    window.location.href="<?php echo base_url('view/detail/detail')?>/" + kode;
-    
-    }
     
     function edit_data(id)
     {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
+    $('.form').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     //Ajax Load data from ajax
     $.ajax({
-    url : "<?php echo base_url('transaksi/ajax_edit')?>/" + id,
+    url : "<?php echo base_url('detail/ajax_edit')?>/" + id,
     type: "GET",
     dataType: "JSON",
     success: function(data)
     {
-    $('[name="id"]').val(data.id_transaksi);
-    $('[name="total"]').val(data.total);
-    $('[name="nama_pemesan"]').val(data.nama_pemesan);
-    $('[name="refdetail"]').val(data.refdetail);
-    $('[name="meja"]').val(data.meja);
-    $('[name="Waktu_pemesanan"]').val(data.Waktu_pemesanan);
+    $('[name="id"]').val(data.id_detail);
+    // $('[name="total"]').val(data.total);
+    // $('[name="nama_pemesan"]').val(data.nama_pemesan);
+    // $('[name="refdetail"]').val(data.refdetail);
+    // $('[name="meja"]').val(data.meja);
+    // $('[name="Waktu_pemesanan"]').val(data.Waktu_pemesanan);
+    $('[name="status"]').val(data.status);
     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
     $('.modal-title').text('Edit Data Transaksi'); // Set title to Bootstrap modal title
 

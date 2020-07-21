@@ -8,6 +8,7 @@ class M_cart extends CI_Model{
         
         $this->load->model('DbHelper');
     }
+    
     function getSemua($refkode = null){
         $this->db->select('detail.id_detail,detail.kode_detail,menu.nama_menu,detail.jumlah,detail.subtotal,detail.status');
         $this->db->from('detail');

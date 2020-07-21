@@ -15,6 +15,14 @@ class M_transaksi extends CI_Model{
 
     }
 
+    function getSemua_id(){
+        $this->db->select('transaksi.refdetail, detail.id_detail');
+        $this->db->from('transaksi');
+        $this->db->join('detail','transaksi.refdetail=detail.kode_detail','left');
+        $query=$this->db->get();
+        return $query;
+    }
+
     function cek($nama,$meja,$hp){
          $this->db->where('nama_pemesan',$nama);
          $this->db->where('meja',$meja);
@@ -43,6 +51,13 @@ function hapus_data($where,$table){
      $query = $this->db->query("SELECT * from transaksi where transaksi.id_transaksi='$id'");
     return $query->row(); 
     }
+
+    public function get_by_id($id)
+    {
+        $this->db->where('id_transaksi', $id);
+        $query = $this->db->get('transaksi');
+        return $query;
+    } 
 
      public function delete_by_kode($id)
     {
