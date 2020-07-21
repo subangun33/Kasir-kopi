@@ -16,7 +16,8 @@ class M_transaksi extends CI_Model{
     }
 
     function getSemua_id(){
-        $this->db->select('transaksi.refdetail, detail.id_detail');
+        $this->db->select('transaksi.*');
+        $this->db->select_sum('detail.subtotal');
         $this->db->from('transaksi');
         $this->db->join('detail','transaksi.refdetail=detail.kode_detail','left');
         $query=$this->db->get();
@@ -67,6 +68,14 @@ function hapus_data($where,$table){
      public function update($where, $data)
     {
         $this->db->update('transaksi', $data, $where);
+    }
+
+    public function cek_transaksi ($refdetail){
+        $this->db->select('*');
+        $this->db->from('transaksi');
+        $this->db->where('refdetail',$refdetail);
+        $query = $this->db->get();
+        return $query;
     }
  
 

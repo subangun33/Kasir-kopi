@@ -75,9 +75,9 @@ $this->load->view('dist/_partials/header');
                         <thead>
                           <tr>
                               <th>No</th>
+                              <th>Kode Transaksi</th>
                               <th>Total</th>
                               <th>Nama Pemesan</th>
-                              <th>Refdetail</th>
                               <th>Meja</th>
                               <th>Waktu Pemesanan</th>
                               <th>Status</th>
@@ -142,9 +142,9 @@ $this->load->view('dist/_partials/header');
             "columns": [
 
               { "data": "no" },  
+              { "data": "refdetail" },
               { "data": "total" },  
               { "data": "nama_pemesan" },
-              { "data": "refdetail" },
               { "data": "meja" },
               { "data": "waktu_pemesanan" },
               { "data": "status" },
