@@ -16,11 +16,15 @@ class Client extends CI_Controller {
 
         $this->load->model('M_client');
         $this->load->model('M_cart');
+        $this->load->model('M_transaksi');
         $this->load->helper(array('form', 'url','tombol','img'));
     }
 
     public function index(){
+          $kode = $this->session->userdata('kode');
           $data['client'] = $this->M_client->getSemua()->result();
+          $data['cek_transaksi'] = $this->M_transaksi->cek_transaksi($kode)->num_rows();
+               
           $this->load->view('dist/user/v_client', $data);
     }
 

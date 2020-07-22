@@ -14,6 +14,7 @@ class M_cart extends CI_Model{
         $this->db->from('detail');
         $this->db->join('menu','menu.kode_menu=detail.refpesanan','left');
         $this->db->where('kode_detail',$refkode);
+        $this->db->order_by('waktu', 'DESC');
         $query=$this->db->get();
         return $query;
 
@@ -68,6 +69,7 @@ function hapus_data($where,$table){
         $this->db->from('detail');
         $this->db->where('detail.kode_detail',$user);
         $this->db->where('detail.refpesanan',$kode_menu);
+        $this->db->where('detail.status',"Pesanan Terkonfirmasi");
         $query = $this->db->get();
         return $query;
     }

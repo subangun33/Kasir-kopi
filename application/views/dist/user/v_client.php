@@ -132,7 +132,14 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-              <button type="submit" id="btnSave" onclick="save()" class="btn btn-primary">Update keranjang</button>
+              <?php 
+              if ($cek_transaksi > 0) { ?>
+                  <button type="submit" id="btnSave" onclick="save()" class="btn btn-primary">Tambah Pesanan</button>
+              <?php } else { ?>
+                  <button type="submit" id="btnSave" onclick="save()" class="btn btn-primary">Update keranjang</button>
+              <?php }
+              ?>
+              
             </form>
             </div>
           </div>
@@ -207,8 +214,7 @@
     {
     if(data.status) //if success close modal and reload ajax table
     {
-    $('#modal_qty').modal('hide');
-    
+      $('#modal_qty').modal('hide');
     }
     
     $('#btnSave').text('Save'); //change button text
@@ -217,10 +223,9 @@
     },
     error: function (jqXHR, textStatus , errorThrown)
     {
-    alert('Maksimal Pemesanan 20 Permenu');
-    $('#btnSave').text('save'); //change button text
-    $('#btnSave').attr('disabled',false); //set button enable
-    
+      alert('Maksimal Pemesanan 20 Permenu');
+      $('#btnSave').text('save'); //change button text
+      $('#btnSave').attr('disabled',false); //set button enable
     }
     });
     }

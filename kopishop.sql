@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jul 2020 pada 12.04
--- Versi server: 10.4.13-MariaDB
--- Versi PHP: 7.4.7
+-- Generation Time: Jul 21, 2020 at 01:57 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail`
+-- Table structure for table `detail`
 --
 
 CREATE TABLE `detail` (
@@ -37,32 +37,10 @@ CREATE TABLE `detail` (
   `waktu` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail`
---
-
-INSERT INTO `detail` (`id_detail`, `kode_detail`, `refpesanan`, `jumlah`, `subtotal`, `status`, `waktu`) VALUES
-(23, '2020-07-120001', '002', 2, 6000, 'Pesanan Terkonfirmasi', '2020-07-12 15:31:01'),
-(24, '2020-07-120001', '003', 1, 10000, 'Pesanan Terkonfirmasi', '2020-07-12 15:33:00'),
-(26, '2020-07-120002', '003', 8, 80000, 'Pesanan Terkonfirmasi', '2020-07-12 15:43:01'),
-(27, '2020-07-120002', '002', 4, 12000, 'Pesanan Terkonfirmasi', '2020-07-12 15:57:04'),
-(28, '2020-07-130001', '002', 1, 3000, 'Pesanan Terkonfirmasi', '2020-07-13 18:16:11'),
-(29, '2020-07-130001', '003', 4, 40000, 'Pesanan Terkonfirmasi', '2020-07-13 18:16:57'),
-(30, '2020-07-140001', '002', 4, 12000, 'Pesanan Terkonfirmasi', '2020-07-14 14:08:36'),
-(31, '2020-07-140002', '003', 0, 0, 'Pesanan Terkonfirmasi', '2020-07-14 14:09:28'),
-(32, '2020-07-140001', '003', 0, 0, 'Pesanan Terkonfirmasi', '2020-07-14 14:11:50'),
-(33, '2020-07-140003', '002', 20, 60000, 'Pesanan Terkonfirmasi', '2020-07-14 14:13:27'),
-(34, '2020-07-140003', '003', 20, 200000, 'Pesanan Terkonfirmasi', '2020-07-14 15:41:41'),
-(35, '2020-07-160001', '002', 5, 15000, 'Pesanan Terkonfirmasi', '2020-07-16 13:53:14'),
-(36, '2020-07-160002', '002', 2, 6000, 'Pesanan Terkonfirmasi', '2020-07-16 14:44:20'),
-(37, '2020-07-160001', '003', 6, 60000, 'Pesanan Terkonfirmasi', '2020-07-16 15:28:14'),
-(38, '2020-07-160003', '002', 11, 33000, 'Pesanan Terkonfirmasi', '2020-07-16 18:44:22'),
-(39, '2020-07-170001', '002', 6, 18000, 'Pesanan Terkonfirmasi', '2020-07-17 15:15:22');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `login`
+-- Table structure for table `login`
 --
 
 CREATE TABLE `login` (
@@ -72,7 +50,7 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `login`
+-- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`id_login`, `username`, `password`) VALUES
@@ -81,7 +59,7 @@ INSERT INTO `login` (`id_login`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `meja`
+-- Table structure for table `meja`
 --
 
 CREATE TABLE `meja` (
@@ -92,7 +70,7 @@ CREATE TABLE `meja` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `meja`
+-- Dumping data for table `meja`
 --
 
 INSERT INTO `meja` (`id_meja`, `kode_meja`, `no_meja`, `qr_code`) VALUES
@@ -104,7 +82,7 @@ INSERT INTO `meja` (`id_meja`, `kode_meja`, `no_meja`, `qr_code`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
@@ -118,7 +96,7 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `menu`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id_menu`, `kode_menu`, `nama_menu`, `harga_menu`, `deskripsi`, `gambar`, `aktif`) VALUES
@@ -128,7 +106,7 @@ INSERT INTO `menu` (`id_menu`, `kode_menu`, `nama_menu`, `harga_menu`, `deskrips
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -143,19 +121,11 @@ CREATE TABLE `transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transaksi`
---
-
-INSERT INTO `transaksi` (`id_transaksi`, `total`, `nama_pemesan`, `refdetail`, `meja`, `no_hp`, `waktu_pemesanan`, `status`) VALUES
-(3, 3000, 'es', '2020-07-140003', '002', '09830928', '2020-07-14 15:22:23', 'Selesai'),
-(10, 15000, 'Bangun', '2020-07-160001', '002', '09830928', '2020-07-16 14:00:30', 'Selesai');
-
---
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `detail`
+-- Indexes for table `detail`
 --
 ALTER TABLE `detail`
   ADD PRIMARY KEY (`id_detail`),
@@ -164,27 +134,27 @@ ALTER TABLE `detail`
   ADD KEY `refpesanan` (`refpesanan`);
 
 --
--- Indeks untuk tabel `login`
+-- Indexes for table `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`id_login`);
 
 --
--- Indeks untuk tabel `meja`
+-- Indexes for table `meja`
 --
 ALTER TABLE `meja`
   ADD PRIMARY KEY (`kode_meja`),
   ADD KEY `id_meja` (`id_meja`);
 
 --
--- Indeks untuk tabel `menu`
+-- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`kode_menu`),
   ADD KEY `id_menu` (`id_menu`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
@@ -192,49 +162,48 @@ ALTER TABLE `transaksi`
   ADD KEY `meja` (`meja`) USING BTREE;
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `detail`
+-- AUTO_INCREMENT for table `detail`
 --
 ALTER TABLE `detail`
-  MODIFY `id_detail` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_detail` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
--- AUTO_INCREMENT untuk tabel `login`
+-- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
   MODIFY `id_login` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `meja`
+-- AUTO_INCREMENT for table `meja`
 --
 ALTER TABLE `meja`
   MODIFY `id_meja` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `menu`
+-- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `id_menu` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_transaksi` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `transaksi`
+-- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`meja`) REFERENCES `meja` (`kode_meja`),
-  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`refdetail`) REFERENCES `detail` (`kode_detail`);
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`meja`) REFERENCES `meja` (`kode_meja`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
